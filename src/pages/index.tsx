@@ -10,7 +10,8 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <div className="pt-6 gap-3 flex flex-col justify-center items-center w-full h-full">
+      <div className="pt-6 gap-3 flex flex-col justify-center items-center w-full min-h-screen bg-gray-900">
+        <QuestionCreator />
         <p className="font-bold text-xl">Questions: </p>
         {data.map((question) => (
           <Link key={question.id} href={"/" + question.id}>
@@ -19,7 +20,6 @@ const Home: NextPage = () => {
             </div>
           </Link>
         ))}
-        <QuestionCreator />
       </div>
     </>
   );

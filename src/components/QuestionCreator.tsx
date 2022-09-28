@@ -21,11 +21,13 @@ function QuestionCreator() {
           event.preventDefault();
           mutate({ question: question });
         }}
+        className="w-1/3"
       >
         <input
           ref={inputRef}
           disabled={isLoading}
-          className="border border-gray-500 rounded-md"
+          placeholder="Enter a question"
+          className="border border-gray-400 rounded-md bg-transparent w-full text-gray-400 p-2 active:outline-none focus:outline-none"
           type="text"
           onChange={(e) => setQuestion(e.target.value)}
         />
