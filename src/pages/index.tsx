@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 import QuestionCreator from "../components/QuestionCreator";
 import { trpc } from "../utils/trpc";
 
@@ -12,9 +13,11 @@ const Home: NextPage = () => {
       <div className="pt-6 gap-3 flex flex-col justify-center items-center w-full h-full">
         <p className="font-bold text-xl">Questions: </p>
         {data.map((question) => (
-          <div key={question.id} className="flex flex-row">
-            <p className="font-bold text-lg">{question.question}</p>
-          </div>
+          <Link key={question.id} href={"/" + question.id}>
+            <div className="flex flex-row cursor-pointer">
+              <p className="font-bold text-lg">{question.question}</p>
+            </div>
+          </Link>
         ))}
         <QuestionCreator />
       </div>
