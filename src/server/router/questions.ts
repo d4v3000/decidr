@@ -1,13 +1,17 @@
-import * as trpc from "@trpc/server";
-import { create } from "domain";
 import { z } from "zod";
 import { prisma } from "../../server/db/client";
 import { createRouter } from "./context";
 
 export const questionRouter = createRouter()
-  .query("get-all", {
-    async resolve() {
-      return await prisma.question.findMany();
+  .query("get-all-my-questions", {
+    async resolve({ ctx }) {
+      return await prisma.question.findMany({
+        where: {
+          ownerToken: {
+            equals: ctx.token,
+          },
+        },
+      });
     },
   })
   .query("get-by-id", {

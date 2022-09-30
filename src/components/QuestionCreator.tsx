@@ -8,7 +8,7 @@ function QuestionCreator() {
     onSuccess: () => {
       setQuestion("");
       setAnswers([]);
-      client.invalidateQueries("questions.get-all");
+      client.invalidateQueries("questions.get-all-my-questions");
       if (!inputRef.current) return;
       inputRef.current.value = "";
     },
