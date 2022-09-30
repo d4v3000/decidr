@@ -8,7 +8,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <div className="pt-6 gap-3 flex flex-col items-center w-full min-h-screen bg-gray-900">
+      <div className="pt-6 gap-3 flex flex-col items-center w-full min-h-screen">
         <QuestionCreator />
         <p className="font-bold text-xl">Your Questions: </p>
         {isLoading && <div>Loading...</div>}
