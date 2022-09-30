@@ -26,7 +26,7 @@ model Question {
 model Answer {
   id         String    @id @unique @default(cuid())
   answer     String
-  value      Int
+  value      Int @default(0)
   Question   Question? @relation(fields: [questionId], references: [id])
   questionId String?
 }

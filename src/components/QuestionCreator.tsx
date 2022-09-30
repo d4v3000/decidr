@@ -7,6 +7,7 @@ function QuestionCreator() {
   const { mutate, isLoading } = trpc.useMutation("questions.create", {
     onSuccess: () => {
       setQuestion("");
+      setAnswers([]);
       client.invalidateQueries("questions.get-all");
       if (!inputRef.current) return;
       inputRef.current.value = "";
@@ -20,7 +21,7 @@ function QuestionCreator() {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          mutate({ question: question });
+          mutate({ question: question, options: answers });
         }}
         className="w-1/3 gap-6 flex flex-col my-20"
       >
@@ -33,11 +34,12 @@ function QuestionCreator() {
           onChange={(e) => setQuestion(e.target.value)}
         />
 
-        <div className="h-96 overflow-auto flex flex-col gap-2 p-4">
+        <div className="max-h-96 overflow-auto flex flex-col gap-2 p-4">
           {answers.map((answer, index) => (
             <div className="flex gap-2" key={index}>
               <input
                 disabled={isLoading}
+                autoFocus={index === answers.length - 1}
                 placeholder="Enter an answer"
                 className="border border-gray-400 rounded-md bg-transparent w-full text-gray-400 p-2 active:outline-none focus:outline-none"
                 type="text"
@@ -49,6 +51,7 @@ function QuestionCreator() {
               />
 
               <button
+                type="button"
                 className="w-10 h-10 bg-transparent border border-gray-400 rounded-md p-2 text-gray-400"
                 onClick={() => {
                   const newAnswers = [...answers];
@@ -64,9 +67,17 @@ function QuestionCreator() {
 
         <button
           className="w-full bg-transparent border border-gray-400 border-dashed rounded-md p-2 text-gray-400"
-          onClick={() => answers.push("")}
+          onClick={(e) => {
+            e.preventDefault();
+            setAnswers([...answers, ""]);
+          }}
         >
           Create new answer +
+        </button>
+        <button type="submit">
+          <span className="text-gray-400 font-bold text-xl">
+            Create question
+          </span>
         </button>
       </form>
     </>
