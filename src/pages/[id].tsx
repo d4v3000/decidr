@@ -12,8 +12,11 @@ const QuestionPageContent: React.FC<{ id: string }> = ({ id }) => {
   return (
     <>
       <div className="pt-6 gap-3 flex flex-col justify-center items-center w-full h-full">
+        {data.isOwner && (
+          <div className="bg-red-200 rounded-md p-3">You are the Owner!</div>
+        )}
         <p className="font-bold text-xl">Question: </p>
-        <p className="font-bold text-lg">{data.question}</p>
+        <p className="font-bold text-lg">{data.question?.question}</p>
       </div>
     </>
   );

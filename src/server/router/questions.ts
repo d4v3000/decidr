@@ -2,9 +2,9 @@ import * as trpc from "@trpc/server";
 import { create } from "domain";
 import { z } from "zod";
 import { prisma } from "../../server/db/client";
+import { createRouter } from "./context";
 
-export const questionRouter = trpc
-  .router()
+export const questionRouter = createRouter()
   .query("get-all", {
     async resolve() {
       return await prisma.question.findMany();
@@ -14,12 +14,14 @@ export const questionRouter = trpc
     input: z.object({
       id: z.string(),
     }),
-    async resolve({ input }) {
-      return await prisma.question.findFirst({
+    async resolve({ input, ctx }) {
+      const question = await prisma.question.findFirst({
         where: {
           id: input.id,
         },
       });
+
+      return { question, isOwner: question?.ownerToken === ctx.token };
     },
   })
   .mutation("create", {
@@ -27,7 +29,8 @@ export const questionRouter = trpc
       question: z.string().min(5).max(255),
       options: z.array(z.string().max(255)).min(2),
     }),
-    async resolve({ input }) {
+    async resolve({ input, ctx }) {
+      if (!ctx.token) return { error: "Unauthorized" };
       return await prisma.question.create({
         data: {
           question: input.question,
@@ -41,6 +44,7 @@ export const questionRouter = trpc
               }),
             ],
           },
+          ownerToken: ctx.token,
         },
       });
     },

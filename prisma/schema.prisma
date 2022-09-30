@@ -21,6 +21,9 @@ model Question {
     createdAt DateTime @default(now())
     question String @db.VarChar(5000)
     options   Answer[]
+    ownerToken String @db.VarChar(255)
+
+    @@index([ownerToken])
 }
 
 model Answer {
