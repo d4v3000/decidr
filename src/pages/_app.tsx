@@ -2,9 +2,9 @@ import { type AppType } from "next/app";
 import {
   MantineProvider,
   ColorSchemeProvider,
-  ColorScheme,
   createEmotionCache,
 } from "@mantine/core";
+import type { ColorScheme } from "@mantine/core";
 import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 
 import { api } from "~/utils/api";
