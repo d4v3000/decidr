@@ -3,6 +3,7 @@ import {
   MantineProvider,
   ColorSchemeProvider,
   ColorScheme,
+  createEmotionCache,
 } from "@mantine/core";
 import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 
@@ -23,6 +24,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
   useHotkeys([["mod+J", () => toggleColorScheme()]]);
 
+  const myCache = createEmotionCache({
+    key: "mantine",
+    prepend: false,
+  });
+
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -32,6 +38,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         withGlobalStyles
         withNormalizeCSS
         theme={{ colorScheme }}
+        emotionCache={myCache}
       >
         <Head>
           <title>Decidr</title>
