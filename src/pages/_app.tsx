@@ -9,6 +9,8 @@ import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import Navbar from "~/components/Navbar";
+import Head from "next/head";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -31,7 +33,15 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         withNormalizeCSS
         theme={{ colorScheme }}
       >
-        <Component {...pageProps} />
+        <Head>
+          <title>Decidr</title>
+          <meta name="description" content="" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Navbar />
+        <div className="mx-auto h-full w-3/4">
+          <Component {...pageProps} />
+        </div>
       </MantineProvider>
     </ColorSchemeProvider>
   );
