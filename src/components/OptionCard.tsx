@@ -9,7 +9,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconPhoto, IconTrash } from "@tabler/icons-react";
-import { FC } from "react";
+import type { FC } from "react";
 
 interface IProps {
   title: string;
@@ -32,7 +32,7 @@ const OptionCard: FC<IProps> = ({
     <Card shadow="sm" p={10} py={0} radius="md" withBorder mt="xs">
       <Group noWrap position="left" align="top" mt="md" mb="xs">
         {imgUrl ? (
-          <Image src={imgUrl} height={160} />
+          <Image src={imgUrl} height={160} alt={`Option ${index + 1} image`} />
         ) : (
           <Stack
             align="center"
