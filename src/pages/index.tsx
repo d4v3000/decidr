@@ -7,7 +7,6 @@ const Home: NextPage = () => {
     <>
       <main>
         <Flex
-          mih={50}
           gap="lg"
           justify="flex-start"
           align="center"
@@ -18,7 +17,7 @@ const Home: NextPage = () => {
           <Text size={36} weight="bold">
             Create a Poll
           </Text>
-          <Card withBorder shadow="md" className="w-1/2 px-12 py-8">
+          <Card withBorder shadow="md" className="w-full px-12 py-8 md:w-1/2">
             <PollCreator />
           </Card>
         </Flex>
