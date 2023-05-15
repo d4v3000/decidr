@@ -91,6 +91,7 @@ const PollCreator = () => {
                 index={i}
                 onTitleChange={onOptionTitleChanged}
                 deleteOption={onOptionDeleted}
+                key={`options_${i}`}
               />
             ))}
           </ScrollArea>
