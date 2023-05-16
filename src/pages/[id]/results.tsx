@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import FlexWrapper from "~/components/FlexWrapper";
 import { api } from "~/utils/api";
 
-const Home: NextPage = () => {
+const Results: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
 
@@ -55,4 +55,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Results;

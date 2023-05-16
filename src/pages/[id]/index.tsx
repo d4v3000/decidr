@@ -5,7 +5,7 @@ import ClipboardButton from "~/components/ClipboardButton";
 import FlexWrapper from "~/components/FlexWrapper";
 import { api } from "~/utils/api";
 
-const Home: NextPage = () => {
+const Poll: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
 
@@ -77,4 +77,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Poll;
