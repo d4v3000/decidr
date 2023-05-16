@@ -41,4 +41,38 @@ export const pollRouter = createTRPCRouter({
         })
       );
     }),
+  create: publicProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        options: z.array(
+          z.object({ title: z.string(), imgUrl: z.string().nullish() })
+        ),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.poll.create({
+        data: {
+          title: input.title,
+          options: {
+            create: input.options.map((option) => ({
+              name: option.title,
+              rating: 0,
+            })),
+          },
+        },
+      });
+    }),
+  get: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.poll.findUnique({
+        where: {
+          id: input.id,
+        },
+        include: {
+          options: true,
+        },
+      });
+    }),
 });

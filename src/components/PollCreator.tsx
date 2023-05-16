@@ -10,8 +10,11 @@ import {
 import { useForm } from "@mantine/form";
 import { useEffect, useRef, useState } from "react";
 import OptionCard from "./OptionCard";
+import { api } from "~/utils/api";
+import { useRouter } from "next/router";
 
 const PollCreator = () => {
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       title: "",
@@ -83,10 +86,14 @@ const PollCreator = () => {
     }
   }, [shouldScroll]);
 
+  const { isLoading, mutate: createPoll } = api.pollRouter.create.useMutation({
+    onSuccess: (data) => router.push(data.id),
+  });
+
   return (
     <Box className="h-full">
       <form
-        onSubmit={form.onSubmit((values) => console.log(values))}
+        onSubmit={form.onSubmit((values) => createPoll(values))}
         className="flex h-full flex-col justify-between"
       >
         <Flex gap="md" direction="column" className="h-[92%]">
@@ -133,7 +140,13 @@ const PollCreator = () => {
         </Flex>
 
         <Group position="right" mt="md">
-          <Button variant="outline" type="submit" px={60}>
+          <Button
+            variant="outline"
+            type="submit"
+            px={60}
+            disabled={isLoading}
+            loading={isLoading}
+          >
             Create Poll
           </Button>
         </Group>

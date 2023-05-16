@@ -1,18 +1,11 @@
-import { Card, Flex, Text } from "@mantine/core";
+import { Card, Text } from "@mantine/core";
 import { type NextPage } from "next";
+import FlexWrapper from "~/components/FlexWrapper";
 import PollCreator from "~/components/PollCreator";
 
 const Home: NextPage = () => {
   return (
-    <Flex
-      gap="lg"
-      justify="flex-start"
-      align="center"
-      direction="column"
-      wrap="nowrap"
-      mt="xl"
-      className="h-[calc(100dvh-96px)]"
-    >
+    <FlexWrapper>
       <Text size={36} weight="bold">
         Create a Poll
       </Text>
@@ -23,7 +16,7 @@ const Home: NextPage = () => {
       >
         <PollCreator />
       </Card>
-    </Flex>
+    </FlexWrapper>
   );
 };
 
