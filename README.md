@@ -1,28 +1,41 @@
-# Create T3 App
+# Decidr
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Decidr is a web app created using the [t3-stack](https://create.t3.gg/) where people can create polls with images and titles and choose between two options at a time instead of seeing every option at once.
 
-## What's next? How do I make an app with this?
+You can try a live demo [here](https://decidr.vercel.app/).
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Technologies used
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- [tailwind css](https://tailwindcss.com/)
+- [nextjs](https://nextjs.org/)
+- [trpc](https://trpc.io/)
+- [prisma](https://www.prisma.io/)
+- mysql
+- aws s3 bucket
+- [mantine]([https://www.react-simple-maps.io/](https://mantine.dev/))
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Features
 
-## Learn More
+- Create polls with unlimited options
+- Aws s3 image upload
+- Rate options in a 1 vs 1 selection style
+- See results compiled in a table
+- Fully responsive
+- Dark/light theme
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Coming soon
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- Different algorithms for choosing which options to display
+- Different algorithms for calculating the end score
+- Automatically delete polls after a certain time
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## Screenshots
 
-## How do I deploy this?
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+![landing](https://github.com/d4v3000/decidr/assets/24357816/e4f61919-347f-4171-8212-d91b94cd4e05)
+
+![poll](https://github.com/d4v3000/decidr/assets/24357816/a267485e-fff2-44a5-838a-c8a3f5a6da68)
+
+![poll_mobile](https://github.com/d4v3000/decidr/assets/24357816/ac4c435c-3934-4fb0-99bd-3ca79809468e)
+
+![results](https://github.com/d4v3000/decidr/assets/24357816/543b714e-fdf9-4e6c-ad86-50209becf676)
