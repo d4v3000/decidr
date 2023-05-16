@@ -6,9 +6,12 @@ import { api } from "~/utils/api";
 
 const Results: NextPage = () => {
   const router = useRouter();
-  const id = router.query.id as string;
+  const pollId = router.query.id as string;
 
-  const { data: poll, isLoading } = api.pollRouter.get.useQuery({ id: id });
+  const { data: poll, isLoading } = api.pollRouter.get.useQuery(
+    { id: pollId },
+    { enabled: !!pollId }
+  );
 
   if (isLoading) {
     return (
@@ -38,7 +41,7 @@ const Results: NextPage = () => {
   });
 
   return (
-    <FlexWrapper>
+    <FlexWrapper className="mx-auto w-full lg:w-1/2">
       <Text size={36} weight="bold">
         {poll.title}
       </Text>
