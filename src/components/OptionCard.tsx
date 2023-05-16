@@ -40,10 +40,14 @@ const OptionCard: FC<IProps> = ({
 
   const deleteImageMutation = api.pollRouter.deleteImage.useMutation();
 
-  const uploadImage = async (file: FileWithPath) => {
+  const uploadImage = async (file: FileWithPath | undefined) => {
     const { url, fields } = await createPresignedUrlMutation.mutateAsync();
 
-    const data: Record<string, Blob | string> = {
+    if (!file) {
+      return null;
+    }
+
+    const data: Record<string, string | Blob> = {
       ...fields,
       "Content-Type": file.type,
       file,
@@ -99,7 +103,7 @@ const OptionCard: FC<IProps> = ({
           </div>
         ) : (
           <Dropzone
-            onDrop={(file) => void uploadImage(file[0]!)}
+            onDrop={(file) => void uploadImage(file[0])}
             onReject={(file) => console.log("rejected files", file)}
             maxSize={3 * 1024 ** 2}
             accept={IMAGE_MIME_TYPE}
@@ -131,7 +135,7 @@ const OptionCard: FC<IProps> = ({
               </Dropzone.Idle>
 
               <Text size="md" inline align="center">
-                Upload image
+                Upload image (max 3MB)
               </Text>
             </Group>
           </Dropzone>
@@ -144,6 +148,7 @@ const OptionCard: FC<IProps> = ({
           onChange={(e) => {
             onTitleChange(index, e.target.value);
           }}
+          autoFocus
         />
         <ActionIcon color="red.6" onClick={() => deleteOption(index)}>
           <IconTrash />
