@@ -1,12 +1,19 @@
 import { ActionIcon, Header, Text } from "@mantine/core";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { IconBrandGithubFilled } from "@tabler/icons-react";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+  const router = useRouter();
   return (
     <Header height={{ base: 50, md: 60 }}>
       <div className="mx-auto flex h-full w-full items-center justify-between px-4 md:w-3/4 md:px-0">
-        <Text size="xl" weight="bold">
+        <Text
+          size="xl"
+          weight="bold"
+          className="cursor-pointer"
+          onClick={() => void router.push("/")}
+        >
           Decidr
         </Text>
         <div className="flex items-center gap-4">
