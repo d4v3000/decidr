@@ -16,7 +16,7 @@ const SelectionItem: FC<IProps> = ({ index, onClick, title, imgUrl }) => {
   return (
     <div
       className="flex h-full w-full cursor-pointer items-center justify-center"
-      onClick={onClick}
+      onClick={void onClick}
     >
       {imgUrl ? (
         <Image
