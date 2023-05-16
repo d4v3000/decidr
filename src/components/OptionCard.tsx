@@ -7,6 +7,7 @@ import {
   useMantineTheme,
   Flex,
   Text,
+  rem,
 } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import type { FC } from "react";
@@ -107,7 +108,7 @@ const OptionCard: FC<IProps> = ({
             <Group
               position="center"
               spacing="xl"
-              style={{ minHeight: "rem(220)", pointerEvents: "none" }}
+              style={{ minHeight: rem(90), pointerEvents: "none" }}
             >
               <Dropzone.Accept>
                 <IconUpload
