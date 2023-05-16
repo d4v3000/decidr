@@ -106,11 +106,7 @@ const PollCreator = () => {
             styles={{ label: { marginBottom: 8 } }}
           />
           <Text>Answer Options</Text>
-          <ScrollArea
-            offsetScrollbars
-            viewportRef={viewport}
-            className="h-full"
-          >
+          <ScrollArea viewportRef={viewport} className="h-full">
             {form.values.options.map((option, i) => (
               <OptionCard
                 title={option.title}
