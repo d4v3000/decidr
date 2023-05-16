@@ -53,6 +53,19 @@ const PollCreator = () => {
     );
   };
 
+  const onOptionImgChanged = (index: number, imgUrl?: string) => {
+    form.setFieldValue(
+      "options",
+      form.values.options.map((option, i) => {
+        if (i === index) {
+          return { ...option, imgUrl: imgUrl };
+        } else {
+          return option;
+        }
+      })
+    );
+  };
+
   const onOptionDeleted = (index: number) => {
     form.setFieldValue(
       "options",
@@ -71,9 +84,12 @@ const PollCreator = () => {
   }, [shouldScroll]);
 
   return (
-    <Box>
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
-        <Flex gap="md" direction="column">
+    <Box className="h-full">
+      <form
+        onSubmit={form.onSubmit((values) => console.log(values))}
+        className="flex h-full flex-col justify-between"
+      >
+        <Flex gap="md" direction="column" className="h-[92%]">
           <TextInput
             placeholder="Type your Question here"
             label="Title"
@@ -83,13 +99,18 @@ const PollCreator = () => {
             styles={{ label: { marginBottom: 8 } }}
           />
           <Text>Answer Options</Text>
-          <ScrollArea h={400} offsetScrollbars viewportRef={viewport}>
+          <ScrollArea
+            offsetScrollbars
+            viewportRef={viewport}
+            className="h-full"
+          >
             {form.values.options.map((option, i) => (
               <OptionCard
                 title={option.title}
                 imgUrl={option.imgUrl}
                 index={i}
                 onTitleChange={onOptionTitleChanged}
+                onImgUrlChange={onOptionImgChanged}
                 deleteOption={onOptionDeleted}
                 key={`options_${i}`}
               />
@@ -100,14 +121,20 @@ const PollCreator = () => {
           ) : (
             <></>
           )}
-          <Button variant="outline" color="gray" onClick={addOption} fullWidth>
+          <Button
+            variant="outline"
+            color="gray"
+            onClick={addOption}
+            fullWidth
+            mih={40}
+          >
             Add option
           </Button>
         </Flex>
 
         <Group position="right" mt="md">
-          <Button variant="outline" type="submit">
-            Submit
+          <Button variant="outline" type="submit" px={60}>
+            Create Poll
           </Button>
         </Group>
       </form>

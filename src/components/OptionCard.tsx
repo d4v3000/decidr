@@ -4,18 +4,21 @@ import {
   Group,
   TextInput,
   ActionIcon,
-  Text,
-  Stack,
   useMantineTheme,
+  Flex,
+  Text,
 } from "@mantine/core";
-import { IconPhoto, IconTrash } from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 import type { FC } from "react";
+import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
 
 interface IProps {
   title: string;
   imgUrl?: string;
   index: number;
   onTitleChange: (index: number, title: string) => void;
+  onImgUrlChange: (index: number, imgUrl?: string) => void;
   deleteOption: (index: number) => void;
 }
 
@@ -24,33 +27,65 @@ const OptionCard: FC<IProps> = ({
   imgUrl,
   index,
   onTitleChange,
+  onImgUrlChange,
   deleteOption,
 }) => {
   const theme = useMantineTheme();
 
   return (
     <Card shadow="sm" p={10} py={0} radius="md" withBorder mt="xs">
-      <Group noWrap position="left" align="top" mt="md" mb="xs">
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        align="flex-start"
+        gap="md"
+        mt="md"
+        mb="xs"
+      >
         {imgUrl ? (
-          <Image src={imgUrl} height={160} alt={`Option ${index + 1} image`} />
+          <Image
+            src={imgUrl}
+            width={250}
+            fit="contain"
+            alt={`Option ${index + 1} image`}
+          />
         ) : (
-          <Stack
-            align="center"
-            justify="center"
-            spacing="xs"
-            className="cursor-pointer rounded-md"
-            style={{
-              backgroundColor:
-                theme.colors.gray[theme.colorScheme === "dark" ? 8 : 2],
-            }}
-            p={20}
+          <Dropzone
+            onDrop={(files) => console.log("accepted files", files)}
+            onReject={(files) => console.log("rejected files", files)}
+            maxSize={3 * 1024 ** 2}
+            accept={IMAGE_MIME_TYPE}
+            multiple={false}
           >
-            <IconPhoto stroke={1.5} />
+            <Group
+              position="center"
+              spacing="xl"
+              style={{ minHeight: "rem(220)", pointerEvents: "none" }}
+            >
+              <Dropzone.Accept>
+                <IconUpload
+                  size="2rem"
+                  stroke={1.5}
+                  color={
+                    theme.colors.blue[theme.colorScheme === "dark" ? 4 : 6]
+                  }
+                />
+              </Dropzone.Accept>
+              <Dropzone.Reject>
+                <IconX
+                  size="2rem"
+                  stroke={1.5}
+                  color={theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]}
+                />
+              </Dropzone.Reject>
+              <Dropzone.Idle>
+                <IconPhoto size="2rem" stroke={1.5} />
+              </Dropzone.Idle>
 
-            <Text size="sm" align="center" color="dimmed" inline mt={6}>
-              Click to upload
-            </Text>
-          </Stack>
+              <Text size="md" inline align="center">
+                Upload image
+              </Text>
+            </Group>
+          </Dropzone>
         )}
 
         <TextInput
@@ -64,7 +99,7 @@ const OptionCard: FC<IProps> = ({
         <ActionIcon color="red.6" onClick={() => deleteOption(index)}>
           <IconTrash />
         </ActionIcon>
-      </Group>
+      </Flex>
     </Card>
   );
 };
