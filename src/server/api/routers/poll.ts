@@ -57,6 +57,7 @@ export const pollRouter = createTRPCRouter({
           options: {
             create: input.options.map((option) => ({
               name: option.title,
+              imgUrl: option.imgUrl,
               rating: 0,
             })),
           },
@@ -71,8 +72,22 @@ export const pollRouter = createTRPCRouter({
           id: input.id,
         },
         include: {
-          options: true,
+          options: {
+            orderBy: {
+              rating: "desc",
+            },
+          },
         },
+      });
+    }),
+  incrementRating: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.option.update({
+        where: {
+          id: input.id,
+        },
+        data: { rating: { increment: 1 } },
       });
     }),
 });
