@@ -46,9 +46,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Navbar />
-        <div className="mx-auto h-full w-full px-8 md:w-3/4 md:px-0">
+        <main className="mx-auto h-full w-full px-8 md:w-3/4 md:px-0">
           <Component {...pageProps} />
-        </div>
+        </main>
       </MantineProvider>
     </ColorSchemeProvider>
   );
