@@ -5,7 +5,7 @@ import PollCreator from "~/components/PollCreator";
 
 const Home: NextPage = () => {
   return (
-    <FlexWrapper>
+    <FlexWrapper className="h-[calc(100dvh-96px)]">
       <Text size={36} weight="bold">
         Create a Poll
       </Text>

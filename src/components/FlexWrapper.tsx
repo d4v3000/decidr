@@ -1,11 +1,12 @@
 import { Flex } from "@mantine/core";
-import { ReactNode, FC } from "react";
+import type { ReactNode, FC } from "react";
 
 interface IProps {
   children: ReactNode;
+  className?: string;
 }
 
-const FlexWrapper: FC<IProps> = ({ children }) => {
+const FlexWrapper: FC<IProps> = ({ children, className }) => {
   return (
     <Flex
       gap="lg"
@@ -14,7 +15,8 @@ const FlexWrapper: FC<IProps> = ({ children }) => {
       direction="column"
       wrap="nowrap"
       mt="xl"
-      className="h-[calc(100dvh-96px)]"
+      mb={className ? "" : "xl"}
+      className={className}
     >
       {children}
     </Flex>
