@@ -55,13 +55,13 @@ const Poll: NextPage = () => {
       <Text size={36} weight="bold">
         {poll.title}
       </Text>
-      <div className="relative flex h-full w-full flex-col items-center justify-center gap-16 md:flex-row">
+      <div className="relative flex h-full w-full flex-col items-center justify-center gap-2 md:flex-row md:gap-16">
         {poll.options[index] && (
           <SelectionItem
             index={index}
             title={poll.options[index]?.name}
             imgUrl={poll.options[index]?.imgUrl}
-            onClick={() => selectOption(poll.options[index]?.id)}
+            onClick={() => void selectOption(poll.options[index]?.id)}
           />
         )}
         <p className="text-3xl">VS</p>
@@ -70,14 +70,14 @@ const Poll: NextPage = () => {
             index={index}
             title={poll.options[index + 1]?.name}
             imgUrl={poll.options[index + 1]?.imgUrl}
-            onClick={() => selectOption(poll.options[index + 1]?.id)}
+            onClick={() => void selectOption(poll.options[index + 1]?.id)}
           />
         ) : (
           <SelectionItem
             index={index}
             title={poll.options[0]?.name}
             imgUrl={poll.options[0]?.imgUrl}
-            onClick={() => selectOption(poll.options[0]?.id)}
+            onClick={() => void selectOption(poll.options[0]?.id)}
           />
         )}
       </div>

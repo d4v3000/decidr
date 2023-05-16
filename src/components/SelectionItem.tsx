@@ -4,7 +4,7 @@ import type { FC } from "react";
 
 interface IProps {
   index: number;
-  onClick: () => Promise<void>;
+  onClick: () => void;
   title?: string;
   imgUrl?: string | null;
 }
@@ -16,7 +16,7 @@ const SelectionItem: FC<IProps> = ({ index, onClick, title, imgUrl }) => {
   return (
     <div
       className="flex h-full w-full cursor-pointer items-center justify-center"
-      onClick={void onClick}
+      onClick={onClick}
     >
       {imgUrl ? (
         <Image
