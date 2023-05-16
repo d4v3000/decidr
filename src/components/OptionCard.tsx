@@ -11,7 +11,9 @@ import {
 import { IconTrash } from "@tabler/icons-react";
 import type { FC } from "react";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import type { FileWithPath } from "@mantine/dropzone";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
+import { api } from "~/utils/api";
 
 interface IProps {
   title: string;
@@ -32,6 +34,44 @@ const OptionCard: FC<IProps> = ({
 }) => {
   const theme = useMantineTheme();
 
+  const createPresignedUrlMutation =
+    api.pollRouter.createPresignedUrl.useMutation();
+
+  const deleteImageMutation = api.pollRouter.deleteImage.useMutation();
+
+  const uploadImage = async (file: FileWithPath) => {
+    const { url, fields } = await createPresignedUrlMutation.mutateAsync();
+
+    const data: Record<string, Blob | string> = {
+      ...fields,
+      "Content-Type": file.type,
+      file,
+    };
+
+    const formData = new FormData();
+    for (const name in data) {
+      formData.append(name, data[name]!);
+    }
+
+    await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    onImgUrlChange(index, url + (fields.key as string));
+  };
+
+  const deleteImage = async () => {
+    if (imgUrl) {
+      const key = imgUrl.replace(
+        "https://decidr-images.s3.eu-central-1.amazonaws.com/",
+        ""
+      );
+      await deleteImageMutation.mutateAsync({ key: key });
+      onImgUrlChange(index, "");
+    }
+  };
+
   return (
     <Card shadow="sm" p={10} py={0} radius="md" withBorder mt="xs">
       <Flex
@@ -42,16 +82,24 @@ const OptionCard: FC<IProps> = ({
         mb="xs"
       >
         {imgUrl ? (
-          <Image
-            src={imgUrl}
-            width={250}
-            fit="contain"
-            alt={`Option ${index + 1} image`}
-          />
+          <div className="relative">
+            <Image
+              src={imgUrl}
+              width={250}
+              fit="contain"
+              alt={`Option ${index + 1} image`}
+            />
+            <div
+              className="absolute right-1 top-1 rounded-full border border-white"
+              onClick={() => void deleteImage()}
+            >
+              <IconX color="white" className="cursor-pointer" />
+            </div>
+          </div>
         ) : (
           <Dropzone
-            onDrop={(files) => console.log("accepted files", files)}
-            onReject={(files) => console.log("rejected files", files)}
+            onDrop={(file) => void uploadImage(file[0]!)}
+            onReject={(file) => console.log("rejected files", file)}
             maxSize={3 * 1024 ** 2}
             accept={IMAGE_MIME_TYPE}
             multiple={false}

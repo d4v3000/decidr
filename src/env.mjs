@@ -8,6 +8,9 @@ export const env = createEnv({
    */
   server: {
     DATABASE_URL: z.string().url(),
+    NEXT_PUBLIC_S3_BUCKET_NAME: z.string(),
+    NEXT_PUBLIC_S3_ACESS_KEY: z.string(),
+    NEXT_PUBLIC_S3_SECRET_KEY: z.string(),
     NODE_ENV: z.enum(["development", "test", "production"]),
   },
 
@@ -26,6 +29,9 @@ export const env = createEnv({
    */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
+    NEXT_PUBLIC_S3_BUCKET_NAME: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
+    NEXT_PUBLIC_S3_ACESS_KEY: process.env.NEXT_PUBLIC_S3_ACESS_KEY,
+    NEXT_PUBLIC_S3_SECRET_KEY: process.env.NEXT_PUBLIC_S3_SECRET_KEY,
     NODE_ENV: process.env.NODE_ENV,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
